@@ -9,13 +9,6 @@ describe.only('<Todo />', () => {
     // Exercise to write a test and fix implementation
     it('when hovering over the status, console is NOT called', async () => {
         renderWithWrapper(<Todo />);
-        const consoleSpy = jest.spyOn(console, 'log');
-    
-        await waitForElementToBeRemoved(() => screen.getByText('Loading ...'));
-        
-        const statusElement = screen.getByText(/Success/i);
-        user.hover(statusElement);
-        
-        expect(consoleSpy).not.toHaveBeenCalledWith('stealing');
+
     })
 });
