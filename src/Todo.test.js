@@ -1,8 +1,8 @@
-import React from 'react'
-import Todos from "./Todos"
-import render from '@testing-library/react'
+import { screen } from '@testing-library/react';
+import {renderWithWrapper} from '../test-utils'
+import Todo from './Todos'
 
-
-describe("<Todo />", () => {
-    render(<Todos />)
-})
+test('renders learn react link', () => {
+    renderWithWrapper(<Todo />);
+    expect(screen.getByText(/add todo/i)).toBeInTheDocument();
+});
