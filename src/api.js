@@ -1,9 +1,13 @@
-import axios from 'axios'
-
-export function getTodos() {
-    return axios.get('https://fakerapi.it/api/v2/books?_quantity=1')    
+export async function getTodos() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([{
+            id: 1, description: 'to do one'
+          }]);
+        }, 300);
+      });
 }
 
 export function postTodo() {
-    return axios.post('/fakeapi/todos')
+    return []
 }

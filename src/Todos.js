@@ -4,27 +4,29 @@ import {
     useMutation,
     useQueryClient,
   } from '@tanstack/react-query'
-  import { getTodos, postTodo } from './api'
+import { getTodos, postTodo } from './api'
 
-  export default function Todos() {
-    const queryClient = useQueryClient()
-  
-    const {data} = useQuery({ queryKey: ['todos'], queryFn: getTodos })
-  
-    const mutation = useMutation({
-      mutationFn: postTodo,
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['todos'] })
-      },
-    })
+export default function Todos() {
+  const queryClient = useQueryClient()
 
-    const submitTodo = () => mutation.mutate({ id: Date.now(), title: 'Do Laundry' })
-  
-    return (
-      <div>
-        <ul>{data?.data.data.map((todo) => <li key={todo.id}>{todo.description}</li>)}</ul>
-  
-        <button onClick={submitTodo}>Add Todo</button>
-      </div>
-    )
-  }
+  const {data, isLoading} = useQuery({ queryKey: ['todos'], queryFn: getTodos })
+  const todolist = isLoading ? [] : data?.map((todo) => <li key={todo.id}>{`FIRST ${todo.description}`}</li>)
+
+  const mutation = useMutation({
+    mutationFn: postTodo,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['todos'] })
+    },
+  })
+
+  const submitTodo = () => mutation.mutate({ id: Date.now(), title: 'Do Laundry' })
+
+  return (
+    <div>
+      <div>Title</div>
+      <ul>{isLoading ? 'Loading ...' : todolist}</ul>
+
+      <button onClick={submitTodo}>Add Todo</button>
+    </div>
+  )
+}
