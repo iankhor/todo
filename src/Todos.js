@@ -10,13 +10,13 @@ export default function Todos() {
   const queryClient = useQueryClient()
 
   const {data, isLoading} = useQuery({ queryKey: ['todos'], queryFn: getTodos })
-  const todolist = isLoading ? [] : data?.map((todo) => <li key={todo.id}>{`FIRST ${todo.description}`}</li>)
+  const todolist = isLoading ? [] : data?.map((todo) => <li key={todo.id}>{`Item ${todo.description}`}</li>)
 
   const mutation = useMutation({
     mutationFn: postTodo,
-    onSuccess: () => {
+    onError: () => {
       queryClient.invalidateQueries({ queryKey: ['todos'] })
-    },
+    }
   })
 
   const submitTodo = () => mutation.mutate({ id: Date.now(), title: 'Do Laundry' })
