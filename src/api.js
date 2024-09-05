@@ -9,7 +9,9 @@ export async function getTodos() {
     return new Promise((resolve) => {
         setTimeout(() => {
           resolve([{
-            id: 1, description: `${fakeItemNumber()}`
+            id: 1, 
+            description: `${fakeItemNumber()}`,
+            sus: 'Status: <b onmouseover="console.log(\'stealing\');">Success</b>'
           }]);
         }, 300);
       });
